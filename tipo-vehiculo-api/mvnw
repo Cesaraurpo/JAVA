@@ -1,0 +1,8 @@
+#!/bin/sh
+WRAPPER_JAR=".mvn/wrapper/maven-wrapper.jar"
+[ -f "$WRAPPER_JAR" ] || {
+  mkdir -p .mvn/wrapper
+  URL="https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar"
+  (command -v curl >/dev/null && curl -fsSL -o "$WRAPPER_JAR" "$URL") ||   (command -v wget >/dev/null && wget -q -O "$WRAPPER_JAR" "$URL") ||   { echo "Necesitas curl o wget para descargar el wrapper"; exit 1; }
+}
+exec "${JAVA_HOME:+$JAVA_HOME/bin/}java" -Dmaven.multiModuleProjectDirectory="$PWD" -cp "$WRAPPER_JAR" org.apache.maven.wrapper.MavenWrapperMain"$@"
